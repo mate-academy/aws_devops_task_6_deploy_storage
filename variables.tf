@@ -1,4 +1,4 @@
 variable "grafana_iam_role_arn" {
-    type = string
-    description = ""
+  description = "IAM Role ARN of the Grafana EC2 instance (from previous task output)"
+  type        = string
 }
