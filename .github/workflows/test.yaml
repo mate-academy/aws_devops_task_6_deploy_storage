@@ -1,18 +1,33 @@
-name: Test
-
-run-name: ${{ github.actor }} - ${{ github.ref_name }}
+name: Terraform Plan Test
 
 on:
-  workflow_dispatch: 
+  push:
+    branches: [ main ]
   pull_request:
+    branches: [ main ]
 
-jobs: 
-  validate-task:
-    runs-on: windows-latest
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    env:
+      AWS_ACCESS_KEY_ID: 'mock'
+      AWS_SECRET_ACCESS_KEY: 'mock'
+      AWS_DEFAULT_REGION: 'us-east-1'
+    
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-    - name: 'Test terraform plan' 
-      shell: pwsh
-      run: tests/test-tf-plan.ps1
-  
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+
+    - name: Terraform Init
+      run: terraform init
+
+    - name: Create Terraform Plan
+      run: terraform plan -out=tfplan
+      continue-on-error: false
+
+    - name: Run Tests
+      run: pwsh ./tests/test-tf-plan.ps1
