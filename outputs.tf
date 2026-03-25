@@ -1,4 +1,4 @@
 output "bucket_name" {
-    value = aws_s3_bucket.grafana_backups.bucket
-    sensitive = false
+  value     = aws_s3_bucket.s3.bucket
+  sensitive = false
 }
