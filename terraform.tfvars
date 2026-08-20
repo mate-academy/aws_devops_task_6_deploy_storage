@@ -1,1 +1,1 @@
-grafana_iam_role_arn = ""
+grafana_iam_role_arn = "arn:aws:iam::063093445633:role/grafana-role"
