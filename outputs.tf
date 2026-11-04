@@ -1,4 +1,5 @@
 output "bucket_name" {
-    value = aws_s3_bucket.grafana_backups.bucket
-    sensitive = false
+  description = "Name of the S3 bucket used for Grafana backups."
+  value       = aws_s3_bucket.grafana_backups.bucket
+  sensitive   = false
 }
