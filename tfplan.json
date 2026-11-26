@@ -1,0 +1,75 @@
+{
+  "format_version": "1.2",
+  "terraform_version": "1.9.8",
+  "configuration": {
+    "root_module": {
+      "resources": [
+        {
+          "address": "aws_s3_bucket.grafana_backups",
+          "mode": "managed",
+          "type": "aws_s3_bucket",
+          "name": "grafana-backups",
+          "provider_config_key": "aws"
+        },
+        {
+          "address": "data.aws_iam_policy_document.grafana_s3",
+          "mode": "data",
+          "type": "aws_iam_policy_document",
+          "name": "grafana_s3",
+          "provider_config_key": "aws",
+          "expressions": {
+            "statement": [
+              {
+                "actions": {
+                  "constant_value": ["s3:ListBucket"]
+                }
+              },
+              {
+                "actions": {
+                  "constant_value": ["s3:GetObject", "s3:PutObject"]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "address": "aws_s3_bucket_policy.grafana_backups",
+          "mode": "managed",
+          "type": "aws_s3_bucket_policy",
+          "name": "grafana_backups",
+          "provider_config_key": "aws"
+        }
+      ]
+    }
+  },
+  "resource_changes": [
+    {
+      "address": "aws_s3_bucket.grafana_backups",
+      "mode": "managed",
+      "type": "aws_s3_bucket",
+      "name": "grafana_backups",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "bucket": "grafana-backups-492133190367"
+        }
+      }
+    },
+    {
+      "address": "aws_s3_bucket_policy.grafana_backups",
+      "mode": "managed",
+      "type": "aws_s3_bucket_policy",
+      "name": "grafana_backups",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "bucket": "grafana-backups-492133190367"
+        }
+      }
+    }
+  ]
+}
